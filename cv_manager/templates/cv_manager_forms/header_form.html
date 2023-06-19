@@ -1,0 +1,56 @@
+<form class="p-5 h-100" action="{% url 'cv_header_api-list' %}{% if entity_id %}{{ entity_id }}/{% endif %}" method="{{ method }}" style="width: 100vw" data-current-step="header"
+      data-change-step="true">
+    <input type="hidden" name="cv_manager" value="{{ cv_manager.id }}">
+    <div class="row">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-6">
+                    <label for="nume" class="form-label">First Name:</label>
+                    <input required type="text" value="{{ entity.nume }}" name="nume" class="form-control">
+                </div>
+                <div class="col-6">
+                    <label for="prenume" class="form-label">Surname:</label>
+                    <input required type="text" value="{{ entity.prenume }}" name="prenume" class="form-control">
+                </div>
+                <div class="col-12">
+                    <label class="form-label">City:</label>
+                    <input required type="text" value="{{ entity.city }}" name="city" class="form-control">
+                </div>
+                <div class="col-6">
+                    <label class="form-label">Country:</label>
+                    <input required type="text" value="{{ entity.country }}" name="country" class="form-control">
+                </div>
+                <div class="col-6">
+                    <label for="phone_number" class="form-label">Phone:</label>
+                    <input required type="tel" value="{{ entity.phone_number }}" name="phone_number" class="form-control">
+                </div>
+                <div class="col-6">
+                    <label for="postcode" class="form-label">Post Code:</label>
+                    <input required type="text" value="{{ entity.postcode }}" name="postcode" class="form-control">
+                </div>
+                <div class="col-6">
+                    <label class="form-label">Email:</label>
+                    <input required type="email" value="{{ entity.email }}" name="email" class="form-control"
+                           placeholder="name@example.com">
+                </div>
+                <div class="col-6">
+                    <label for="age" class="form-label">Age:</label>
+                    <input required type="number" value="{{ entity.age }}" name="age" min="0" max="100" class="form-control">
+                </div>
+                <div class="col-6">
+                    <label for="photo" class="form-label">Photo:</label>
+                    <input type="file" data-value="{{ entity.photo.url }}" name="photo" class="form-control">
+                </div>
+                <div class="col-6">
+                    <label for="specialty" class="form-label">Specialty:</label>
+                    <input required type="text" value="{{ entity.specialty }}" name="specialty" class="form-control">
+                </div>
+                <div class="col-12">
+                    <label for="profile_details" class="form-label">Profile Details:</label>
+                    <textarea name="profile_details" data-name="profile_details" id="" cols="30" rows="5" class="form-control">{{ entity.profile_details }}</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success">Next</button>
+</form>

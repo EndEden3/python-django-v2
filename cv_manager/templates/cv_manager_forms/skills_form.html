@@ -1,0 +1,27 @@
+<div class="btn btn-primary position-absolute" onclick="add_new_skill()">Add new skill</div>
+<form class="p-5 h-100" action="{% url 'cv_skill_api-list' %}" method="POST" style="width: 100vw" data-current-step="skills"
+      data-change-step="true">
+    <input type="hidden" name="cv_manager" value="{{ cv_manager.id }}">
+    <div class="row">
+        <div class="col-12">
+            <div class="row" data-sortable="true" data-action="upload_skill">
+                {% for entity in entities %}
+                    <div class="col-12 skill-block this_block position-relative">
+                        <div class="handle_drag"><i class="fa-solid fa-arrows-up-down-left-right"></i></div>
+                        <div class="remove_block" onclick="remove_block($(this))"><i class="fa-solid fa-trash"></i></div>
+                        <div class="col-12">
+                            <label for="skill" class="form-label">Skill:</label>
+                            <input required type="text" data-name="skill" name="skill" value="{{ entity.skill }}" class="form-control">
+                        </div>
+                        <div class="col-12">
+                            <label for="point" class="form-label">Point:</label>
+                            <input required type="range" value="{{ entity.point }}" min="0" max="5" step="1" data-name="point" name="point" class="form-range form-control">
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <input type="hidden" name="last_related_count" value="1">
+    <button type="submit" class="btn btn-success">Next</button>
+</form>

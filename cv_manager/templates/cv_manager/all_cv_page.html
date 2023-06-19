@@ -1,0 +1,47 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}C.V. Personal Manager{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'all_cv_styles.css' %}">
+{% endblock styles %}
+{% block content %}
+    <div class="d-flex h-100">
+        <div class="col-6">
+            <div class="d-flex justify-content-center g-5 w-100 p-5">
+                <table class=" w-100">
+                <thead class="legaltable-light">
+                    <tr>
+                        <th class="text-sm text-muted" data-filter-by-order="true" scope="col">CV</th>
+                        <th class="text-sm text-muted" scope="col">Status</th>
+                        <th class="text-sm text-muted" data-gfilter-name="Template" scope="col">Created At</th>
+                        <th class="text-sm text-muted" data-gfilter-name="Template" scope="col">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for cv_manager in cv_managers %}
+                    <tr>
+                        <td>{{ cv_manager.name }}</td>
+                        <td>{{ cv_manager.state }}</td>
+                        <td>{{ cv_manager.created_at }}</td>
+                        <td>
+                            <a class="btn" href="{% url 'edit_cv' cv_manager.id %}"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <div class="btn" onclick="show_preview_cv({{ cv_manager.id }})"><i class="fa-solid fa-eye"></i></div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-6 d-flex flex-column d-none" data-type="show_preview">
+            <div class="d-flex justify-content-center align-items-center"><h2>Preview</h2></div>
+            <iframe id="preview_cv" allowfullscreen></iframe>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {% include 'main/scripts.html' %}
+    <script src="{% static 'all_cv_scripts.js' %}"></script>
+    <script src="{% static 'scripts.js' %}"></script>
+{% endblock scripts %}

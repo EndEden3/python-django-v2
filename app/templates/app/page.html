@@ -1,0 +1,41 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}C.V. Personal Manager{% endblock %}
+{% block content %}
+    <div class="cards-container d-flex justify-content-center g-5">
+        <a href="{% url 'build_new_cv' %}" class="card" style="width: 18rem;">
+            <div class="card-cv-icon"><i class="fa-solid fa-user-plus"></i></div>
+            <div class="card-body">
+            </div>
+        </a>
+
+        <a href="{% url 'cv_list' %}" class="card" style="width: 18rem;">
+            <div class="card-cv-icon"><i class="fa-solid fa-users"></i></div>
+            <div class="card-body">
+            </div>
+        </a>
+
+    </div>
+
+{% endblock %}
+
+{% block navbar %}
+    {{ block.super }}
+{% endblock %}
+
+{% block nav_additional_content %}
+    <div class="d-flex gap-3">
+        {% if request.user.is_anonymous %}
+            <a href="{% url 'signin' %}" class="btn btn-warning">Sign In</a>
+            <a href="{% url 'signup' %}" class="btn btn-warning">Sign Up</a>
+        {% else %}
+            <div class="text-white d-flex align-items-center">Hi {{ request.user.username }}!</div>
+            <a href="{% url 'logout' %}" class="btn btn-warning">Log Out</a>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static 'scripts.js' %}"></script>
+{% endblock scripts %}

@@ -21,9 +21,12 @@ from django.urls import path, include
 
 urlpatterns = [
     path('', include('app.urls')),
+    path('accounts/', include('accounts.urls')),
+    path('cv_manager/', include('cv_manager.urls')),
     path('admin/', admin.site.urls),
 ]
 
 if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

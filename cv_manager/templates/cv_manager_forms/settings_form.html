@@ -1,0 +1,59 @@
+<form class="p-5 h-100" action="{% url 'cv_manager_api-list' %}{% if entity_id %}{{ entity_id }}/{% endif %}"
+      method="{{ method }}" style="width: 100vw" data-current-step="settings"
+      data-change-step="true">
+    <div class="row">
+        <div class="col-12">
+            <div class="row">
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button bg-dark text-white" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Details
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                             data-bs-parent="#accordionExample">
+                            <div class="accordion-body col-12">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <label for="name" class="form-label">CV Name:</label>
+                                        <input type="text" value="{{ entity.name }}" name="name" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button bg-dark text-white collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Available Templates
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                             data-bs-parent="#accordionExample">
+                            <div class="accordion-body col-12">
+                            <div class="row">
+                                    {% for template in templates %}
+                                    <div class="col-6 d-flex">
+                                        <div class="form-check d-flex p-0">
+                                            <label for="{{ template.name }}" style="cursor: pointer">
+                                                <div class="iframe-wrapper">
+                                                    <iframe style="pointer-events: none" class="cv_templates_previewer" srcdoc='{{ template.html|safe }}' scrolling="no" frameborder="0"></iframe>
+                                                </div>
+                                            </label>
+                                            <input class="form-check-input" {% if template.id == entity.template_name.id %}checked{% endif %} type="radio" name="template_name" id="{{ template.name }}" value="{{ template.id }}">
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success">Next</button>
+</form>

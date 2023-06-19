@@ -1,0 +1,27 @@
+<div class="btn btn-primary position-absolute" onclick="add_new_experience()">Add new experience</div>
+<form class="p-5 h-100" action="{% url 'cv_experience_api-list' %}" method="{{ method }}" style="width: 100vw" data-current-step="experience"
+      data-change-step="true">
+    <input type="hidden" name="cv_manager" value="{{ cv_manager.id }}">
+    <div class="row">
+        <div class="col-12">
+            <div class="row" data-sortable="true" data-action="upload_experiences">
+                {% for entity in entities %}
+                    <div class="col-12 experience-block this_block position-relative">
+                        <div class="handle_drag"><i class="fa-solid fa-arrows-up-down-left-right"></i></div>
+                        <div class="remove_block" onclick="remove_block($(this))"><i class="fa-solid fa-trash"></i></div>
+                        <div class="col-12">
+                            <label for="experience_name" class="form-label">Experience name:</label>
+                            <input required type="text" name="name" data-name="name" value="{{ entity.name }}" class="form-control">
+                        </div>
+                        <div class="col-12">
+                            <label for="experience_details" class="form-label">Details:</label>
+                            <textarea name="details" data-name="details" id="" cols="30" rows="5" class="form-control">{{ entity.details }}</textarea>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <input type="hidden" name="last_related_count" value="1">
+    <button type="submit" class="btn btn-success">Next</button>
+</form>

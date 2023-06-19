@@ -1,0 +1,42 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html {% block zoom %}{% endblock %} lang="en" style="padding: 0px">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock title %}</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+    {% include 'main/head.html' %}
+    {% block styles %}
+    {% endblock styles %}
+</head>
+<body class="overflow-hidden">
+
+{% block navbar %}
+<nav class="navbar d-flex bg-dark border-bottom border-bottom-dark" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand text-light" href="{% url 'main_page' %}">C.V. Personal Manager</a>
+        {% block nav_additional_content %}
+        {% endblock %}
+    </div>
+</nav>
+{% endblock %}
+</div>
+
+{% block main_block %}
+<main class="main-block-content">
+    <div class="container-fluid vstack p-0 h-100">
+        {% block content %}
+        {% endblock %}
+    </div>
+</main>
+{% endblock %}
+
+{% block popups %}
+{% endblock popups %}
+
+{% block scripts %}
+    {% include 'main/scripts.html' %}
+{% endblock scripts %}
+</body>
+</html>

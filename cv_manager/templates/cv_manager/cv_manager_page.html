@@ -1,0 +1,52 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}C.V. Personal Manager{% endblock %}
+
+{% block nav_additional_content %}
+    <ul class="progress-group m-0" id="progressBar">
+        <li class="progress-item active" data-step="settings" onclick="change_step('settings')">
+            <div class="progress-link">SETTINGS</div>
+        </li>
+        <li class="progress-item" data-step="header" onclick="change_step('header')">
+            <div class="progress-link">HEADER</div>
+        </li>
+        <li class="progress-item" data-step="experience" onclick="change_step('experience')">
+            <div class="progress-link">EXPERIENCE</div>
+        </li>
+        <li class="progress-item" data-step="education" onclick="change_step('education')">
+            <div class="progress-link">EDUCATION</div>
+        </li>
+        <li class="progress-item" data-step="skills" onclick="change_step('skills')">
+            <div class="progress-link">SKILLS</div>
+        </li>
+        <li class="progress-item text-nowrap text-right p-none" data-step="final" onclick="change_step('final')">
+            <div class="progress-link">FINALISE</div>
+        </li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <div class="d-flex h-100">
+        <div class="col-6">
+            <div class="d-flex justify-content-center g-5 h-100" data-type="upload_cv_form" data-instance-id="{{ cv_manager.id }}">
+                {{ form }}
+            </div>
+        </div>
+        <div class="col-6 d-flex flex-column">
+            <div class="d-flex justify-content-center align-items-center"><h2>Preview</h2></div>
+            <iframe id="preview_cv" allowfullscreen></iframe>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {% include 'main/scripts.html' %}
+    <script src="{% static 'scripts.js' %}"></script>
+    <script>
+        {% if edit_mode %}
+            change_step("{{ cv_manager.state }}")
+        {% else %}
+            preview_cv({{ cv_manager.id }})
+        {% endif %}
+    </script>
+{% endblock scripts %}

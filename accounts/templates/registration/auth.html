@@ -1,0 +1,25 @@
+{% extends "main/base.html" %}
+
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/account_styles.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-center py-5">
+        <div class="col-6">
+            <h2>{{ title }}</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                {% if sign_in %}
+                    <span style="text-align: center; padding-bottom: 10px">If you cannot have account, <a href="{% url 'signup' %}">sign up</a>, please</span>
+                {% endif %}
+                <button class="btn btn-success" type="submit">Sign Up</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

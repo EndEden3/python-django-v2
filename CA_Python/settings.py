@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -38,8 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'accounts',
 
+    'rest_framework',
+
+    'cv_manager',
     'app',
+    'common',
 ]
 
 MIDDLEWARE = [
@@ -48,6 +53,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'login_required.middleware.LoginRequiredMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -57,7 +63,7 @@ ROOT_URLCONF = 'CA_Python.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
+        'DIRS': [os.path.join(BASE_DIR, './templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -80,7 +86,7 @@ WSGI_APPLICATION = 'CA_Python.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -124,7 +130,29 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+LOGIN_REDIRECT_URL = "main_page"
+LOGOUT_REDIRECT_URL = "main_page"
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# APPEND_SLASH = False
+
+LOGIN_REQUIRED_IGNORE_PATHS = [
+    r'/accounts/(.*)$',
+    r'/accounts/logout/$',
+    r'/accounts/login/$',
+    r'/admin/$',
+    r'/media/(.*)$',
+    r'/static/(.*)$',
+]
+
+LOGIN_REQUIRED_IGNORE_VIEW_NAMES = [
+    'main_page',
+    'admin:index',
+    'admin:login',
+    'namespace:url_name',
+]
+
+LOGIN_REQUIRED_REDIRECT_FIELD_NAME = 'next_url'

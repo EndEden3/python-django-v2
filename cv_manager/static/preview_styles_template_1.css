@@ -1,0 +1,56 @@
+.cv_preview{
+    margin: 50px;
+    border-radius: 2px;
+    border: 1px solid darkgrey;
+    box-shadow: 0px 20px 24px -4px rgba(16, 24, 40, 0.08), 0px 8px 8px -4px rgba(16, 24, 40, 0.03);
+}
+
+.cv_preview .cv_header{
+    background-color: #004852;
+    color: white;
+    font-size: 24px;
+    padding: 20px;
+    gap: 20px;
+}
+
+.cv_preview .cv_body{
+    padding: 0px;
+}
+
+.cv_preview .cv_footer{
+    padding: 0px;
+}
+
+.cv_header_photo{
+    width: 200px;
+    aspect-ratio: 3/2;
+    object-fit: contain;
+}
+
+.progress{
+    height: 5px;
+}
+
+.progress-bar{
+    background-color: #2c2c2c;
+}
+
+.section-main-title{
+    color: #2c2c2c;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.section-title{
+    color: #2c2c2c;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+ul{
+    list-style-type: circle;
+}
+
+ul > li{
+    padding: 10px;
+}

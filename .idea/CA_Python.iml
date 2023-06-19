@@ -24,7 +24,9 @@
     <option name="TEMPLATE_CONFIGURATION" value="Django" />
     <option name="TEMPLATE_FOLDERS">
       <list>
-        <option value="$MODULE_DIR$/../CA_Python\templates" />
+        <option value="$MODULE_DIR$/templates" />
+        <option value="$MODULE_DIR$/app/templates" />
+        <option value="$MODULE_DIR$/cv_manager/templates" />
       </list>
     </option>
   </component>

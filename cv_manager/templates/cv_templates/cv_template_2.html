@@ -1,0 +1,157 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}C.V.Preview{% endblock %}
+
+{% block zoom %}
+{% if iframe %}
+        style="zoom: 0.5"
+{% endif %}
+{% endblock %}
+
+{% block navbar %}
+    {% if preview_mode %}
+    {% else %}
+        {{ block.super }}
+    {% endif %}
+{% endblock %}
+
+{% block nav_additional_content %}
+    {% if preview_mode %}
+    {% else %}
+        {{ block.super }}
+    {% endif %}
+{% endblock %}
+
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'preview_styles_template_2.css' %}">
+    {% if iframe %}
+        <style>
+            * {
+                font-size: 8px;
+            }
+        </style>
+    {% endif %}
+{% endblock styles %}
+
+{% block main_block %}
+{% if preview_mode %}
+    <div class="d-flex row cv_preview">
+        <div class="col-12 cv_header d-flex flex-column justify-content-center align-items-center">
+            <img {% if iframe %}style="width: 50px" {% endif %} src="{% if header.photo.url %}{{ header.photo.url }}{% else %}{% static 'images/new_user.png' %}{% endif %}" alt="" class="cv_header_photo">
+            <div class="d-flex profile-details fs-6">
+                <div><i class="fa-solid fa-briefcase me-1"></i>{{ header.specialty }}</div>
+                <hr>
+                <div>{{ header.nume }} {{ header.prenume }}</div>
+                <hr>
+                <div><i class="fa-solid fa-envelope me-1"></i>{{ header.email }}</div>
+            </div>
+        </div>
+        <div class="d-flex col-12 cv_body row">
+            <div class="col-12 d-grid gap-3 border-bottom">
+                <div class="p-3 align-items-center justify-content-center row">
+                    <div class="col-12 d-flex justify-content-center">Details:</div>
+                    <div class="col-2"><i class="fa-solid fa-location-dot me-1"></i>{{ header.country }}, {{ header.city }}</div>
+                    <div class="col-2"><i class="fa-solid fa-phone me-1"></i>{{ header.phone_number }}</div>
+                    <div class="col-2"><i class="fa-solid fa-envelope me-1"></i>{{ header.email }}</div>
+                    <div class="col-2"><i class="fa-solid fa-briefcase me-1"></i>{{ header.specialty }}</div>
+                </div>
+                <div class="px-5 pb-2 align-items-center row">
+                    <div class="col-12 d-flex justify-content-center">Skills:</div>
+                    {% for skill in skills %}
+                        <div class="col-2">
+                            <label for="">{{ skill.skill }}</label>
+                            <div class="progress w-100">
+                                <div class="progress-bar" style="width: {{ skill.get_width }}%" role="progressbar" aria-valuenow="{{ skill.point }}" aria-valuemin="0" aria-valuemax="5"></div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-12">
+                <ul>
+                    <li>
+                        <div class="section-main-title"><i class="fa-solid fa-user"></i> PROFILE</div>
+                        <div>{{ header.profile_details }}</div>
+                    </li>
+                    <li>
+                        <div class="section-main-title"><i class="fa-solid fa-briefcase"></i> EMPLOYMENT HISTORY</div>
+                        {% for experience in experiences %}
+                            <div class="section-title">{{ experience.name }}</div>
+                            <div>{{ experience.details }}</div>
+                        {% endfor %}
+                    </li>
+                    <li>
+                        <div class="section-main-title"><i class="fa-solid fa-graduation-cap"></i> EDUCATION</div>
+                        {% for education in educations %}
+                            <div class="section-title">{{ education.name }}, <i class="fa-solid fa-location-dot me-1"></i>{{ education.city }}</div>
+                            <div>{{ education.details }}</div>
+                        {% endfor %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="d-flex col-12 cv_footer"></div>
+    </div>
+{% else %}
+    {{ block.super }}
+    {% block content %}
+    <div class="d-flex row cv_preview">
+        <div class="col-12 cv_header d-flex">
+            <img src="{% if header.photo.url %}{{ header.photo.url }}{% else %}{% static 'images/new_user.png' %}{% endif %}" alt="" class="cv_header_photo">
+            <div class="d-flex flex-column fs-6">
+                <div>{{ header.nume }} {{ header.prenume }}, {{ header.age }}</div>
+                <div><i class="fa-solid fa-location-dot me-1"></i>{{ header.country }}, {{ header.city }}, {{ header.postcode }}</div>
+                <div><i class="fa-solid fa-phone me-1"></i>{{ header.phone_number }}</div>
+                <div><i class="fa-solid fa-envelope me-1"></i>{{ header.email }}</div>
+                <div><i class="fa-solid fa-briefcase me-1"></i>{{ header.specialty }}</div>
+            </div>
+        </div>
+        <div class="d-flex col-12 cv_body">
+            <div class="col-3 d-grid gap-3 border-end">
+                <div class="p-3 d-flex align-items-center justify-content-center flex-column">
+                    <div>Details:</div>
+                    <div><i class="fa-solid fa-location-dot me-1"></i>{{ header.country }}, {{ header.city }}</div>
+                    <div><i class="fa-solid fa-phone me-1"></i>{{ header.phone_number }}</div>
+                    <div><i class="fa-solid fa-envelope me-1"></i>{{ header.email }}</div>
+                    <div><i class="fa-solid fa-briefcase me-1"></i>{{ header.specialty }}</div>
+                </div>
+                <div class="px-5 d-flex align-items-center justify-content-center flex-column">
+                    <div>Skills:</div>
+                    {% for skill in skills %}
+                        <label for="">{{ skill.skill }}</label>
+                        <div class="progress w-100">
+                            <div class="progress-bar" style="width: {{ skill.get_width }}%" role="progressbar" aria-valuenow="{{ skill.point }}" aria-valuemin="0" aria-valuemax="5"></div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-9">
+                <ul>
+                    <li>
+                        <div class="section-main-title"><i class="fa-solid fa-user"></i> PROFILE</div>
+                        <div>{{ header.profile_details }}</div>
+                    </li>
+                    <li>
+                        <div class="section-main-title"><i class="fa-solid fa-briefcase"></i> EMPLOYMENT HISTORY</div>
+                        {% for experience in experiences %}
+                            <div class="section-title">{{ experience.name }}</div>
+                            <div>{{ experience.details }}</div>
+                        {% endfor %}
+                    </li>
+                    <li>
+                        <div class="section-main-title"><i class="fa-solid fa-graduation-cap"></i> EDUCATION</div>
+                        {% for education in educations %}
+                            P
+                            <div class="section-title">{{ education.name }}, <i class="fa-solid fa-location-dot me-1"></i>{{ education.city }}</div>
+                            <div>{{ education.details }}</div>
+                        {% endfor %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="d-flex col-12 cv_footer"></div>
+    </div>
+{% endblock %}
+{% endif %}
+{% endblock %}
