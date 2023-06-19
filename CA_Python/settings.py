@@ -148,6 +148,7 @@ LOGIN_REQUIRED_IGNORE_PATHS = [
     r'/static/(.*)$',
 ]
 
+
 LOGIN_REQUIRED_IGNORE_VIEW_NAMES = [
     'main_page',
     'admin:index',
